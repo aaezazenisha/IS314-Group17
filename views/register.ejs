@@ -1,0 +1,20 @@
+<%- include('partials/header', { title: 'Create account | CampusStay', user }) %>
+<section class="container page">
+  <div class="form-card card">
+    <div class="page-heading"><div class="eyebrow">Student account</div><h1>Create your account</h1><p>Use your current student details to get started.</p></div>
+    <% if (error) { %><div class="alert error" role="alert"><%= error %></div><% } %>
+    <form action="/register" method="post">
+      <div class="form-grid">
+        <div class="form-field"><label for="studentId">Student ID *</label><input id="studentId" name="studentId" value="<%= form.studentId || '' %>" required autocomplete="username"></div>
+        <div class="form-field"><label for="fullName">Full name *</label><input id="fullName" name="fullName" value="<%= form.fullName || '' %>" required autocomplete="name"></div>
+        <div class="form-field"><label for="email">Email address *</label><input id="email" name="email" type="email" value="<%= form.email || '' %>" required autocomplete="email"></div>
+        <div class="form-field"><label for="phone">Phone number *</label><input id="phone" name="phone" type="tel" value="<%= form.phone || '' %>" required autocomplete="tel"></div>
+        <div class="form-field"><label for="password">Password *</label><input id="password" name="password" type="password" required minlength="8" autocomplete="new-password"></div>
+        <div class="form-field"><label for="confirmPassword">Confirm password *</label><input id="confirmPassword" name="confirmPassword" type="password" required minlength="8" autocomplete="new-password"></div>
+      </div>
+      <p class="form-help">Password must be at least 8 characters.</p>
+      <div class="form-footer"><span>Already registered? <a href="/login">Log in</a></span><button class="button" type="submit">Create account</button></div>
+    </form>
+  </div>
+</section>
+<%- include('partials/footer') %>

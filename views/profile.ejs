@@ -1,0 +1,16 @@
+<%- include('partials/header', { title: 'My profile | CampusStay', user }) %>
+<section class="container page">
+  <div class="page-heading"><div class="eyebrow">Student account</div><h1>My profile</h1><p>Review your student details and make updates when needed.</p></div>
+  <% if (error) { %><div class="alert error" role="alert"><%= error %></div><% } %>
+  <% if (success) { %><div class="alert success"><%= success %></div><% } %>
+  <div class="form-card card">
+    <form action="/profile" method="post">
+      <div class="form-field"><label for="studentId">Student ID</label><input id="studentId" value="<%= form.student_id %>" disabled></div>
+      <div class="form-field" style="margin-top:18px"><label for="fullName">Full name *</label><input id="fullName" name="fullName" value="<%= form.full_name %>" required autocomplete="name"></div>
+      <div class="form-field" style="margin-top:18px"><label for="email">Email address *</label><input id="email" name="email" type="email" value="<%= form.email %>" required autocomplete="email"></div>
+      <div class="form-field" style="margin-top:18px"><label for="phone">Phone number *</label><input id="phone" name="phone" type="tel" value="<%= form.phone %>" required autocomplete="tel"></div>
+      <div class="form-footer"><a href="/dashboard">&larr; Back to dashboard</a><button class="button" type="submit">Save changes</button></div>
+    </form>
+  </div>
+</section>
+<%- include('partials/footer') %>
