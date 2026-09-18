@@ -1,0 +1,18 @@
+{
+  "name": "hostel-room-booking-system",
+  "version": "1.0.0",
+  "description": "IS314 Group 17 Hostel Room Booking System - Stage 1",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "db:migrate": "node scripts/migrate.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.7.0",
+    "cookie-parser": "^1.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}

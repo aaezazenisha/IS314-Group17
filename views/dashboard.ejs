@@ -1,0 +1,11 @@
+<%- include('partials/header', { title: 'Dashboard | CampusStay', user }) %>
+<section class="container page">
+  <% if (success) { %><div class="alert success"><%= success %></div><% } %>
+  <div class="page-heading"><div class="eyebrow">Student portal</div><h1>Welcome, <%= user.full_name.split(' ')[0] %>.</h1><p>Your CampusStay account is ready for the next stage of your accommodation journey.</p></div>
+  <div class="dashboard-grid">
+    <div class="dashboard-card card"><h2>My profile</h2><p>Keep your name, email, and phone number up to date.</p><a href="/profile">View and edit profile &rarr;</a></div>
+    <div class="dashboard-card card"><h2>Account status</h2><p>Your student account is active and securely authenticated.</p><strong>Active</strong></div>
+    <div class="dashboard-card card"><h2>Coming next</h2><p>Room availability and booking tools will be added in a future stage.</p><span>Stage 2 planned</span></div>
+  </div>
+</section>
+<%- include('partials/footer') %>

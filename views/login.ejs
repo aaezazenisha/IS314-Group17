@@ -1,0 +1,13 @@
+<%- include('partials/header', { title: 'Log in | CampusStay', user }) %>
+<section class="container page">
+  <div class="form-card card">
+    <div class="page-heading"><div class="eyebrow">Welcome back</div><h1>Student login</h1><p>Log in to manage your CampusStay account.</p></div>
+    <% if (error) { %><div class="alert error" role="alert"><%= error %></div><% } %>
+    <form action="/login" method="post">
+      <div class="form-field"><label for="studentId">Student ID</label><input id="studentId" name="studentId" value="<%= form.studentId || '' %>" required autocomplete="username"></div>
+      <div class="form-field" style="margin-top:18px"><label for="password">Password</label><input id="password" name="password" type="password" required autocomplete="current-password"></div>
+      <div class="form-footer"><span>New student? <a href="/register">Create an account</a></span><button class="button" type="submit">Log in</button></div>
+    </form>
+  </div>
+</section>
+<%- include('partials/footer') %>

@@ -1,0 +1,17 @@
+<%- include('partials/header', { title: 'CampusStay | Student accommodation', user }) %>
+<section class="container hero">
+  <div>
+    <div class="eyebrow">Student accommodation made simpler</div>
+    <h1>Your next campus home starts here.</h1>
+    <p>CampusStay is the secure student account hub for the Hostel Room Booking System. Create your account today and keep your accommodation details in one place.</p>
+    <div class="actions"><a class="button" href="/register">Create a student account</a><a class="button secondary" href="/login">I already have an account</a></div>
+  </div>
+  <div class="hero-card">
+    <h2>A better student experience</h2>
+    <div class="stat"><strong>One account</strong><span>Manage your personal information securely.</span></div>
+    <div class="stat"><strong>Built for campus</strong><span>Designed around student accommodation needs.</span></div>
+    <div class="stat"><strong>Ready to grow</strong><span>Future booking features will connect to your account.</span></div>
+  </div>
+</section>
+<% if (success) { %><div class="container"><div class="alert success"><%= success %></div></div><% } %>
+<%- include('partials/footer') %>
