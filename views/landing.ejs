@@ -1,17 +1,31 @@
-<%- include('partials/header', { title: 'CampusStay | Student accommodation', user }) %>
-<section class="container hero">
-  <div>
-    <div class="eyebrow">Student accommodation made simpler</div>
-    <h1>Your next campus home starts here.</h1>
-    <p>CampusStay is the secure student account hub for the Hostel Room Booking System. Create your account today and keep your accommodation details in one place.</p>
-    <div class="actions"><a class="button" href="/register">Create a student account</a><a class="button secondary" href="/login">I already have an account</a></div>
+<%- include('partials/header', { title: 'JAATCampusStay | Hostel Room Booking System', user }) %>
+<section class="auth-layout">
+  <div class="auth-intro">
+    <div class="intro-inner">
+      <div class="eyebrow eyebrow-light">University accommodation portal</div>
+      <div class="intro-brand"><span class="brand-mark brand-mark-large">JC</span><span>JAATCampusStay</span></div>
+      <h1>Find your place.<br><em>Feel at home.</em></h1>
+      <p>Access and manage your university hostel accommodation through one secure system.</p>
+      <div class="feature-list">
+        <div><span class="feature-icon">⌂</span><span><strong>Live room availability</strong><small>See accommodation options as they become available.</small></span></div>
+        <div><span class="feature-icon">✓</span><span><strong>Simple booking requests</strong><small>A clear path from finding a room to making it yours.</small></span></div>
+        <div><span class="feature-icon">✦</span><span><strong>Secure student access</strong><small>Your account details stay private and protected.</small></span></div>
+      </div>
+    </div>
   </div>
-  <div class="hero-card">
-    <h2>A better student experience</h2>
-    <div class="stat"><strong>One account</strong><span>Manage your personal information securely.</span></div>
-    <div class="stat"><strong>Built for campus</strong><span>Designed around student accommodation needs.</span></div>
-    <div class="stat"><strong>Ready to grow</strong><span>Future booking features will connect to your account.</span></div>
+  <div class="auth-panel">
+    <div class="login-card card">
+      <div class="login-heading"><div class="eyebrow">Hostel Room Booking System</div><h2>Welcome back</h2><p>Sign in to continue to JAATCampusStay.</p></div>
+      <div class="login-options">
+        <a class="login-option selected" href="/login"><span>Student login</span><small>For residents</small></a>
+        <a class="login-option" href="/admin/login"><span>Admin login</span><small>For administrators</small></a>
+      </div>
+      <div class="login-preview">
+        <h3>Ready to get started?</h3><p>Sign in with your student account or create one in less than a minute.</p>
+        <div class="actions"><a class="button button-wide" href="/login">Sign in</a><a class="button secondary button-wide" href="/register">Create student account</a></div>
+      </div>
+      <p class="login-note">New to JAATCampusStay? <a href="/register">Create your student account</a></p>
+    </div>
   </div>
 </section>
-<% if (success) { %><div class="container"><div class="alert success"><%= success %></div></div><% } %>
 <%- include('partials/footer') %>

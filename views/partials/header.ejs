@@ -3,21 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><%= title || 'Hostel Booking System' %></title>
+  <title><%= title || 'JAATCampusStay | Hostel Room Booking System' %></title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <header class="site-header">
   <nav class="container nav">
-    <a class="brand" href="/">CampusStay</a>
+    <a class="brand" href="/"><span class="brand-mark">JC</span><span>JAATCampusStay</span></a>
     <div class="nav-links">
       <% if (user) { %>
         <a href="/dashboard">Dashboard</a>
         <a href="/profile">My profile</a>
         <form action="/logout" method="post"><button class="link-button" type="submit">Log out</button></form>
       <% } else { %>
-        <a href="/login">Log in</a>
-        <a class="button" href="/register">Create account</a>
+        <a href="/login">Student login</a>
+        <a href="/admin/login">Admin login</a>
+        <a class="button button-small" href="/register">Create account</a>
       <% } %>
     </div>
   </nav>

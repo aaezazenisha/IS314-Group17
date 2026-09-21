@@ -1,0 +1,42 @@
+<!-- Integration shell for the future database-backed Admin Dashboard module. -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administration | JAATCampusStay</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="portal-body">
+<aside class="sidebar admin-sidebar">
+  <div class="sidebar-brand"><span class="brand-mark">JC</span><span>JAATCampusStay</span></div>
+  <div class="admin-label">Administration</div>
+  <nav class="sidebar-nav" aria-label="Administration navigation">
+    <a class="active" href="/admin/dashboard"><span class="nav-icon">⌂</span> Dashboard</a>
+    <a href="/admin/dashboard"><span class="nav-icon">▦</span> Manage Rooms</a>
+    <a href="/admin/dashboard"><span class="nav-icon">▣</span> Booking Requests</a>
+    <a href="/admin/dashboard"><span class="nav-icon">◎</span> Residents</a>
+    <a href="/admin/dashboard"><span class="nav-icon">♢</span> Notices</a>
+    <a href="/admin/dashboard"><span class="nav-icon">▤</span> Reports</a>
+    <a href="/admin/dashboard"><span class="nav-icon">⚙</span> Settings</a>
+  </nav>
+  <a class="sidebar-admin-exit" href="/admin/login">Log out</a>
+</aside>
+<div class="portal-main">
+  <header class="portal-topbar"><span class="portal-label">Administration portal</span><span class="admin-badge">Admin access required</span></header>
+  <main class="portal-content">
+    <div class="portal-heading"><div><div class="eyebrow">Administration</div><h1>Dashboard overview</h1><p>Connect this shell to administrator authentication and reporting data.</p></div></div>
+    <section class="portal-cards admin-stat-grid">
+      <div class="portal-card card"><span class="card-icon teal">▣</span><span><strong>Rooms occupied</strong><small>No occupancy data available yet</small></span></div>
+      <div class="portal-card card"><span class="card-icon gold">⌂</span><span><strong>Available spaces</strong><small>No room data available yet</small></span></div>
+      <div class="portal-card card"><span class="card-icon navy">◷</span><span><strong>Pending requests</strong><small>No booking data available yet</small></span></div>
+      <div class="portal-card card"><span class="card-icon teal">%</span><span><strong>Occupancy rate</strong><small>No occupancy data available yet</small></span></div>
+    </section>
+    <section class="admin-empty-grid">
+      <div class="card admin-empty-panel"><h2>Recent booking requests</h2><p>No booking data available yet.</p></div>
+      <div class="card admin-empty-panel"><h2>Hostel occupancy</h2><p>Occupancy information will appear when the Rooms module is connected.</p></div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

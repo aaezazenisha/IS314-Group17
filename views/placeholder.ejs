@@ -1,0 +1,4 @@
+<%- include('partials/dashboard-header', { title: title + ' | JAATCampusStay', user, activePage }) %>
+<div class="portal-heading"><div><div class="eyebrow">Student portal</div><h1><%= title %></h1><p>JAATCampusStay is ready for this module to be connected.</p></div></div>
+<section class="empty-state card"><span class="empty-icon">✦</span><h2><%= title %> is coming soon</h2><p><%= message %></p><a class="button secondary" href="/dashboard">Back to dashboard</a></section>
+<%- include('partials/dashboard-footer') %>

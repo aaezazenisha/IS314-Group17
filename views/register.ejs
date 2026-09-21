@@ -1,7 +1,7 @@
-<%- include('partials/header', { title: 'Create account | CampusStay', user }) %>
-<section class="container page">
+<%- include('partials/header', { title: 'Create student account | JAATCampusStay', user }) %>
+<section class="container page public-page">
   <div class="form-card card">
-    <div class="page-heading"><div class="eyebrow">Student account</div><h1>Create your account</h1><p>Use your current student details to get started.</p></div>
+    <div class="page-heading"><div class="eyebrow">Student access</div><h1>Create your account</h1><p>Join JAATCampusStay to manage your university accommodation.</p></div>
     <% if (error) { %><div class="alert error" role="alert"><%= error %></div><% } %>
     <form action="/register" method="post">
       <div class="form-grid">
@@ -12,8 +12,8 @@
         <div class="form-field"><label for="password">Password *</label><input id="password" name="password" type="password" required minlength="8" autocomplete="new-password"></div>
         <div class="form-field"><label for="confirmPassword">Confirm password *</label><input id="confirmPassword" name="confirmPassword" type="password" required minlength="8" autocomplete="new-password"></div>
       </div>
-      <p class="form-help">Password must be at least 8 characters.</p>
-      <div class="form-footer"><span>Already registered? <a href="/login">Log in</a></span><button class="button" type="submit">Create account</button></div>
+      <p class="form-help">Use at least 8 characters. Your password is securely hashed and never stored as plain text.</p>
+      <div class="form-footer"><span>Already registered? <a href="/login">Sign in</a></span><button class="button" type="submit">Create account</button></div>
     </form>
   </div>
 </section>

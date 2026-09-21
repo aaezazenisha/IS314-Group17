@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title || 'JAATCampusStay | Student portal' %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="portal-body">
+<aside class="sidebar" id="student-sidebar">
+  <div class="sidebar-brand"><span class="brand-mark">JC</span><span>JAATCampusStay</span></div>
+  <div class="student-identity">
+    <div class="avatar"><%= user.full_name.charAt(0).toUpperCase() %></div>
+    <div><strong><%= user.full_name %></strong><small><%= user.student_id %></small></div>
+  </div>
+  <nav class="sidebar-nav" aria-label="Student navigation">
+    <a class="<%= activePage === 'dashboard' ? 'active' : '' %>" href="/dashboard"><span class="nav-icon">⌂</span> Dashboard</a>
+    <a class="<%= activePage === 'find-room' ? 'active' : '' %>" href="/find-room"><span class="nav-icon">⌕</span> Find a Room</a>
+    <a class="<%= activePage === 'my-booking' ? 'active' : '' %>" href="/my-booking"><span class="nav-icon">▣</span> My Booking</a>
+    <a class="<%= activePage === 'notifications' ? 'active' : '' %>" href="/notifications"><span class="nav-icon">♢</span> Notifications</a>
+    <a class="<%= activePage === 'profile' ? 'active' : '' %>" href="/profile"><span class="nav-icon">◎</span> My Profile</a>
+  </nav>
+  <form class="sidebar-logout" action="/logout" method="post"><button type="submit"><span class="nav-icon">↪</span> Log out</button></form>
+</aside>
+<div class="portal-main">
+  <header class="portal-topbar">
+    <button class="menu-toggle" type="button" aria-controls="student-sidebar" aria-expanded="false">Menu</button>
+    <span class="portal-label">Student portal</span>
+    <a href="/profile" class="topbar-user"><span class="avatar avatar-small"><%= user.full_name.charAt(0).toUpperCase() %></span><%= user.full_name %></a>
+  </header>
+  <main class="portal-content">
