@@ -1,11 +1,14 @@
-<%- include('partials/header', { title: 'Dashboard | CampusStay', user }) %>
-<section class="container page">
-  <% if (success) { %><div class="alert success"><%= success %></div><% } %>
-  <div class="page-heading"><div class="eyebrow">Student portal</div><h1>Welcome, <%= user.full_name.split(' ')[0] %>.</h1><p>Your CampusStay account is ready for the next stage of your accommodation journey.</p></div>
-  <div class="dashboard-grid">
-    <div class="dashboard-card card"><h2>My profile</h2><p>Keep your name, email, and phone number up to date.</p><a href="/profile">View and edit profile &rarr;</a></div>
-    <div class="dashboard-card card"><h2>Account status</h2><p>Your student account is active and securely authenticated.</p><strong>Active</strong></div>
-    <div class="dashboard-card card"><h2>Coming next</h2><p>Room availability and booking tools will be added in a future stage.</p><span>Stage 2 planned</span></div>
-  </div>
+<%- include('partials/dashboard-header', { title: 'Student dashboard | JAATCampusStay', user, activePage }) %>
+<% if (success) { %><div class="alert success"><%= success %></div><% } %>
+<div class="portal-heading"><div><div class="eyebrow">Student dashboard</div><h1>Bula, <%= user.full_name.split(' ')[0] %>.</h1><p>Welcome back to your accommodation portal.</p></div><div class="date-chip">JAATCampusStay</div></div>
+<section class="welcome-banner">
+  <div><span class="eyebrow eyebrow-light">Your accommodation journey</span><h2>Everything you need, all in one place.</h2><p>Explore available rooms and manage your student accommodation when the relevant modules are connected.</p></div>
+  <span class="banner-shape">JC</span>
 </section>
-<%- include('partials/footer') %>
+<section class="portal-cards">
+  <a class="portal-card card" href="/find-room"><span class="card-icon teal">⌕</span><span><strong>Available rooms</strong><small>Room listings will appear here.</small></span><b>Coming soon</b></a>
+  <a class="portal-card card" href="/my-booking"><span class="card-icon gold">▣</span><span><strong>Current booking</strong><small>Track your booking status here.</small></span><b>Coming soon</b></a>
+  <a class="portal-card card" href="/payments"><span class="card-icon navy">$</span><span><strong>Accommodation fees</strong><small>Payment details will appear here.</small></span><b>Coming soon</b></a>
+</section>
+<section class="quick-section"><div class="section-heading"><div><h2>Quick access</h2><p>Navigate to the tools available in your student portal.</p></div></div><div class="quick-grid"><a href="/find-room" class="quick-link card"><span>⌕</span><strong>Find a room</strong><small>Explore room availability</small></a><a href="/profile" class="quick-link card"><span>◎</span><strong>My profile</strong><small>Update your account details</small></a><a href="/notifications" class="quick-link card"><span>♢</span><strong>Notifications</strong><small>View system updates</small></a></div></section>
+<%- include('partials/dashboard-footer') %>

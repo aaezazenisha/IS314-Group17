@@ -1,56 +1,74 @@
-# CampusStay Hostel Room Booking System
+# JAATCampusStay Hostel Room Booking System
 
-Stage 1 of the IS314 Group 17 project: a working student account module for the
-Hostel Room Booking System. This stage includes a responsive landing page,
-student registration, secure login/logout, database-backed sessions, a protected
-dashboard, and profile viewing/editing. Room listings, booking, payment,
-notification, administration, and reports are intentionally reserved for later
-stages.
+JAATCampusStay is the IS314 Group 17 university hostel accommodation portal.
+This redesign preserves the working Stage 1 student account module and prepares
+the shared visual and navigation foundation for the remaining group modules.
 
 ## Requirements
 
 - Node.js 18 or newer
 - npm
 
-## Installation and database setup
+## Install and set up the database
 
 ```bash
 npm install
 npm run db:migrate
 ```
 
-The migration creates `data/hostel.sqlite` automatically. The database and its
-WAL files are ignored by Git, so every developer gets a local database.
+The migration creates `data/hostel.sqlite` with the `users` and `sessions`
+tables. The local database and its WAL files are ignored by Git.
 
-## Running the application
+## Run locally
 
 ```bash
 npm start
 ```
 
-Open <http://localhost:3000>. During development, `npm run dev` starts Node's
-watch mode and restarts the server when source files change. Set `PORT` to use
-a different port, for example `PORT=4000 npm start`.
+Open <http://localhost:3000>. For development with automatic restart, use
+`npm run dev`. Set `PORT` to use another port, such as
+`PORT=4000 npm start`.
 
-## Testing Stage 1 manually
+## Stage 1 student account testing
 
-1. Open the landing page and select **Create a student account**.
-2. Submit an incomplete form, an invalid email, a short password, and mismatched
-   passwords to verify validation messages.
-3. Register with a unique Student ID and email. The password is stored as a
-   bcrypt hash, never as plain text.
-4. Confirm the dashboard is shown after registration. Open `/dashboard` in a
-   private window or after logging out to verify unauthenticated access is
-   redirected to login.
-5. Log out, log in again with the database-backed credentials, and update the
-   name, email, or phone number from **My profile**.
-6. Try registering the same Student ID or email again to verify duplicate
-   accounts are rejected.
+1. Open the landing page and choose **Student login** or **Create student account**.
+2. Register with a unique Student ID, full name, email, phone number, and a
+   password of at least 8 characters.
+3. Confirm required-field, email-format, password-match, short-password, and
+   duplicate-account validation.
+4. Log in with either the Student ID or registered email and password. The
+   optional Remember Me checkbox extends the session duration.
+5. Confirm `/dashboard` and `/profile` redirect to login after logout.
+6. Edit the profile and confirm the updated values persist in SQLite.
+
+## Admin login status
+
+The `/admin/login` interface and `/admin/dashboard` route boundary are prepared
+for the separate Admin Dashboard & Reports module. There is no public admin
+registration and no hard-coded admin credential. Admin form submission
+intentionally returns a clear not-yet-configured message rather than pretending
+to authenticate. Students cannot use their student session to access an admin
+dashboard.
+
+## Implemented and prepared modules
+
+**Implemented:** responsive JAATCampusStay landing/login experience, student
+registration, bcrypt password hashing, database authentication, HTTP-only
+sessions, logout, protected student dashboard, profile viewing/editing, and
+validation.
+
+**Integration placeholders:** room search (`/find-room`), bookings
+(`/my-booking`), notifications (`/notifications`), and payments (`/payments`).
+These routes show honest empty states and do not invent room, booking, payment,
+or notification data.
+
+**Prepared for future integration:** responsive student sidebar, separate admin
+login boundary, administration branding, and reusable card/form styling.
 
 ## Project structure
 
-- `server.js` - Express routes, validation, authentication, and session handling
+- `server.js` - Express routes, validation, authentication, sessions, and placeholders
 - `db.js` and `scripts/migrate.js` - SQLite connection and schema migration
-- `views/` - EJS pages and shared navigation/footer partials
-- `public/styles.css` - responsive application styling
-- `data/` - local SQLite database created on first run (ignored by Git)
+- `views/` - EJS public, student portal, admin shell, and shared partials
+- `public/styles.css` - responsive JAATCampusStay design system
+- `data/` - local SQLite database created on first run

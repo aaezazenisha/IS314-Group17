@@ -1,16 +1,9 @@
-<%- include('partials/header', { title: 'My profile | CampusStay', user }) %>
-<section class="container page">
-  <div class="page-heading"><div class="eyebrow">Student account</div><h1>My profile</h1><p>Review your student details and make updates when needed.</p></div>
-  <% if (error) { %><div class="alert error" role="alert"><%= error %></div><% } %>
-  <% if (success) { %><div class="alert success"><%= success %></div><% } %>
-  <div class="form-card card">
-    <form action="/profile" method="post">
-      <div class="form-field"><label for="studentId">Student ID</label><input id="studentId" value="<%= form.student_id %>" disabled></div>
-      <div class="form-field" style="margin-top:18px"><label for="fullName">Full name *</label><input id="fullName" name="fullName" value="<%= form.full_name %>" required autocomplete="name"></div>
-      <div class="form-field" style="margin-top:18px"><label for="email">Email address *</label><input id="email" name="email" type="email" value="<%= form.email %>" required autocomplete="email"></div>
-      <div class="form-field" style="margin-top:18px"><label for="phone">Phone number *</label><input id="phone" name="phone" type="tel" value="<%= form.phone %>" required autocomplete="tel"></div>
-      <div class="form-footer"><a href="/dashboard">&larr; Back to dashboard</a><button class="button" type="submit">Save changes</button></div>
-    </form>
-  </div>
-</section>
-<%- include('partials/footer') %>
+<%- include('partials/dashboard-header', { title: 'My profile | JAATCampusStay', user, activePage }) %>
+<div class="portal-heading"><div><div class="eyebrow">Student account</div><h1>My profile</h1><p>Keep your details current so the hostel team can contact you.</p></div></div>
+<% if (error) { %><div class="alert error" role="alert"><%= error %></div><% } %>
+<% if (success) { %><div class="alert success"><%= success %></div><% } %>
+<div class="profile-layout">
+  <section class="card profile-card"><div class="profile-card-heading"><span class="avatar avatar-large"><%= user.full_name.charAt(0).toUpperCase() %></span><div><h2><%= user.full_name %></h2><p><%= user.student_id %></p></div></div><div class="profile-detail"><span>Account status</span><strong><span class="status-dot"></span> Active</strong></div><div class="profile-detail"><span>Member since</span><strong>Student account</strong></div></section>
+  <section class="card edit-card"><h2>Edit personal details</h2><p class="section-copy">Your Student ID cannot be changed here.</p><form action="/profile" method="post"><div class="form-field"><label for="studentId">Student ID</label><input id="studentId" value="<%= form.student_id %>" disabled></div><div class="form-field"><label for="fullName">Full name *</label><input id="fullName" name="fullName" value="<%= form.full_name %>" required autocomplete="name"></div><div class="form-field"><label for="email">Email address *</label><input id="email" name="email" type="email" value="<%= form.email %>" required autocomplete="email"></div><div class="form-field"><label for="phone">Phone number *</label><input id="phone" name="phone" type="tel" value="<%= form.phone %>" required autocomplete="tel"></div><div class="form-footer"><a href="/dashboard">Cancel</a><button class="button" type="submit">Save changes</button></div></form></section>
+</div>
+<%- include('partials/dashboard-footer') %>

@@ -1,13 +1,21 @@
-<%- include('partials/header', { title: 'Log in | CampusStay', user }) %>
-<section class="container page">
-  <div class="form-card card">
-    <div class="page-heading"><div class="eyebrow">Welcome back</div><h1>Student login</h1><p>Log in to manage your CampusStay account.</p></div>
-    <% if (error) { %><div class="alert error" role="alert"><%= error %></div><% } %>
-    <form action="/login" method="post">
-      <div class="form-field"><label for="studentId">Student ID</label><input id="studentId" name="studentId" value="<%= form.studentId || '' %>" required autocomplete="username"></div>
-      <div class="form-field" style="margin-top:18px"><label for="password">Password</label><input id="password" name="password" type="password" required autocomplete="current-password"></div>
-      <div class="form-footer"><span>New student? <a href="/register">Create an account</a></span><button class="button" type="submit">Log in</button></div>
-    </form>
+<%- include('partials/header', { title: 'Student login | JAATCampusStay', user }) %>
+<section class="auth-layout auth-layout-simple">
+  <div class="auth-intro">
+    <div class="intro-inner"><div class="intro-brand"><span class="brand-mark brand-mark-large">JC</span><span>JAATCampusStay</span></div><h1>Find your place.<br><em>Feel at home.</em></h1><p>Sign in to manage your university hostel accommodation through one secure system.</p></div>
+  </div>
+  <div class="auth-panel">
+    <div class="login-card card">
+      <div class="login-heading"><div class="eyebrow">Student access</div><h2>Welcome back</h2><p>Sign in to continue to JAATCampusStay.</p></div>
+      <div class="login-options"><a class="login-option selected" href="/login"><span>Student login</span><small>For residents</small></a><a class="login-option" href="/admin/login"><span>Admin login</span><small>For administrators</small></a></div>
+      <% if (error) { %><div class="alert error" role="alert"><%= error %></div><% } %>
+      <form action="/login" method="post">
+        <div class="form-field"><label for="identifier">Student ID or email</label><input id="identifier" name="identifier" value="<%= form.identifier || '' %>" required autocomplete="username"></div>
+        <div class="form-field password-field"><label for="password">Password</label><input id="password" name="password" type="password" required autocomplete="current-password"></div>
+        <div class="form-row"><label class="checkbox-label"><input type="checkbox" name="remember"> Remember me</label><a href="/login?error=Password+recovery+will+be+available+soon">Forgot password?</a></div>
+        <button class="button button-wide" type="submit">Sign in</button>
+      </form>
+      <p class="login-note">New to JAATCampusStay? <a href="/register">Create your student account</a></p>
+    </div>
   </div>
 </section>
 <%- include('partials/footer') %>

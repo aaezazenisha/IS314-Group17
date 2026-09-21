@@ -9,6 +9,7 @@ const app = express();
 const port = Number(process.env.PORT) || 3000;
 const sessionCookie = 'hostel_session';
 const sessionDuration = 1000 * 60 * 60 * 24 * 7;
+const rememberedSessionDuration = 1000 * 60 * 60 * 24 * 30;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -24,9 +25,10 @@ function hashToken(token) {
   return crypto.createHash('sha256').update(token).digest('hex');
 }
 
-function createSession(userId, response) {
+function createSession(userId, response, remember = false) {
   const token = crypto.randomBytes(32).toString('hex');
-  const expiresAt = Date.now() + sessionDuration;
+  const duration = remember ? rememberedSessionDuration : sessionDuration;
+  const expiresAt = Date.now() + duration;
   database.prepare(
     'INSERT INTO sessions (token_hash, user_id, expires_at) VALUES (?, ?, ?)'
   ).run(hashToken(token), userId, expiresAt);
@@ -34,7 +36,7 @@ function createSession(userId, response) {
     httpOnly: true,
     sameSite: 'lax',
     secure: process.env.NODE_ENV === 'production',
-    maxAge: sessionDuration
+    maxAge: duration
   });
 }
 
@@ -63,12 +65,17 @@ function loadUser(request, response, next) {
 }
 
 function requireAuth(request, response, next) {
-  if (!request.user) return response.redirect('/login?error=Please+log+in+to+continue');
+  if (!request.user) return response.redirect('/login?error=Please+sign+in+to+continue');
   next();
 }
 
 function renderWithMessage(request, response, template, data = {}) {
-  response.render(template, { ...data, user: request.user, error: request.query.error, success: request.query.success });
+  response.render(template, {
+    ...data,
+    user: request.user,
+    error: request.query.error,
+    success: request.query.success
+  });
 }
 
 app.use(loadUser);
@@ -132,23 +139,27 @@ app.post('/register', async (request, response) => {
 });
 
 app.get('/login', (request, response) => {
-  renderWithMessage(request, response, 'login', { form: {} });
+  renderWithMessage(request, response, 'login', { form: { identifier: '' } });
 });
 
 app.post('/login', async (request, response) => {
-  const studentId = normalize(request.body.studentId);
+  const identifier = normalize(request.body.identifier);
   const password = request.body.password || '';
-  const account = database.prepare('SELECT * FROM users WHERE student_id = ?').get(studentId);
+  const account = database.prepare(
+    'SELECT * FROM users WHERE student_id = ? OR email = ? COLLATE NOCASE'
+  ).get(identifier, identifier);
   const validPassword = account ? await bcrypt.compare(password, account.password_hash) : false;
 
-  if (!account || !validPassword) {
+  if (!identifier || !password || !account || !validPassword) {
     return response.status(401).render('login', {
       user: request.user,
-      form: { studentId },
-      error: 'Student ID or password is incorrect.'
+      form: { identifier },
+      error: !identifier || !password
+        ? 'Enter your Student ID or email and password.'
+        : 'Student ID/email or password is incorrect.'
     });
   }
-  createSession(account.id, response);
+  createSession(account.id, response, request.body.remember === 'on');
   response.redirect('/dashboard');
 });
 
@@ -158,11 +169,11 @@ app.post('/logout', (request, response) => {
 });
 
 app.get('/dashboard', requireAuth, (request, response) => {
-  renderWithMessage(request, response, 'dashboard');
+  renderWithMessage(request, response, 'dashboard', { activePage: 'dashboard' });
 });
 
 app.get('/profile', requireAuth, (request, response) => {
-  renderWithMessage(request, response, 'profile', { form: request.user });
+  renderWithMessage(request, response, 'profile', { form: request.user, activePage: 'profile' });
 });
 
 app.post('/profile', requireAuth, (request, response) => {
@@ -173,6 +184,7 @@ app.post('/profile', requireAuth, (request, response) => {
     return response.status(400).render('profile', {
       user: request.user,
       form: { ...request.user, full_name: fullName, email, phone },
+      activePage: 'profile',
       error: 'Please provide a full name, phone number, and valid email address.'
     });
   }
@@ -187,12 +199,48 @@ app.post('/profile', requireAuth, (request, response) => {
       return response.status(400).render('profile', {
         user: request.user,
         form: { ...request.user, full_name: fullName, email, phone },
+        activePage: 'profile',
         error: 'That email address is already in use.'
       });
     }
     console.error('Profile update failed:', error);
-    response.status(500).render('profile', { user: request.user, form: request.user, error: 'Profile could not be updated.' });
+    response.status(500).render('profile', {
+      user: request.user,
+      form: request.user,
+      activePage: 'profile',
+      error: 'Profile could not be updated.'
+    });
   }
+});
+
+const placeholderPages = {
+  '/find-room': ['Find a Room', 'Room availability and search will be connected in the Room Listing module.'],
+  '/my-booking': ['My Booking', 'Booking status and management will be connected in the Booking module.'],
+  '/notifications': ['Notifications', 'Booking updates and system notices will appear here when the Notification module is connected.'],
+  '/payments': ['Payments', 'Payment status will be connected in the Payment module.']
+};
+
+Object.entries(placeholderPages).forEach(([route, [title, message]]) => {
+  app.get(route, requireAuth, (request, response) => {
+    renderWithMessage(request, response, 'placeholder', { title, message, activePage: route.slice(1) });
+  });
+});
+
+// Admin authentication is intentionally not fabricated here. This boundary is
+// ready for the separate Admin Dashboard module to add its database-backed auth.
+app.get('/admin/login', (request, response) => {
+  response.render('admin-login', { user: request.user, error: request.query.error });
+});
+
+app.post('/admin/login', (request, response) => {
+  response.status(501).render('admin-login', {
+    user: request.user,
+    error: 'Administrator authentication is not available yet. It will be connected by the Admin Dashboard module.'
+  });
+});
+
+app.get('/admin/dashboard', (request, response) => {
+  response.redirect('/admin/login?error=Administrator+authentication+is+not+configured');
 });
 
 app.use((request, response) => response.status(404).render('404', { user: request.user }));
